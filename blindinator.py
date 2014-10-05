@@ -65,12 +65,10 @@ def center():
         servo_pos.y=90
         aim_and_fire()
 
-def moving_average(period):
-    queue = deque()
-    def ma(pos):
+def process_point(pos):
         queue.append(pos)
         qlen = len(queue)
-        if qlen > period:
+        if qlen > 5:
                 queue.popleft()
                 qlen-=1
         xsum=ysum=0.0
@@ -78,7 +76,6 @@ def moving_average(period):
                 xsum += pt.x
                 ysum += pt.y
         return point(int(xsum/qlen),int(ysum/qlen))
-    return ma
 
 def update_target(find_list):
         global has_eye
@@ -196,7 +193,7 @@ def Look():
 #segment = HaarCascade("left_eye2.xml") #slow/inaccurate
 segment = HaarCascade("right_eye.xml")
 
-process_point = moving_average(5)
+queue = deque()
 servo_pos = point(90,90)
 lit=False
 safety=True
