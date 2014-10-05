@@ -81,17 +81,23 @@ def moving_average(period):
     return ma
 
 def update_target(find_list):
+        global has_eye
         # todo: examine second/third found point; discard outliers
         if find_list:
                 result = process_point(find_list[0])
+                if not has_eye:
+                        has_eye = True
+                        print "found eye"
                 #result = find_list[0]
         else:
+                if has_eye:
+                        print "lost eye" #ow
+                        has_eye = False
                 result = None
         return result
 
 def reset_target():
-        if lit:
-                print "lost eye" #ow
+        queue.clear()
 
 def blindinate(cameraPoint):
         global servo_pos,lit
@@ -194,6 +200,7 @@ process_point = moving_average(5)
 servo_pos = point(90,90)
 lit=False
 safety=True
+has_eye=False
 
 center()
 aim_and_fire()
