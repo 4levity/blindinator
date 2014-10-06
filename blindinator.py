@@ -12,10 +12,10 @@ except:
         sys.exit("Blindinator Not Found")
 
 # "calibration" given in servo values
-pleft=65
-pright=139
-ptop=57
-pbottom=110
+pleft=66
+pright=141
+ptop=59
+pbottom=111
 
 class point(object):
   def __init__(self,x,y):
@@ -165,19 +165,19 @@ def Look():
                         laser(False)
                 elif disp.pressed[ord('1')]:
                         laser(True)
-                elif disp.pressed[ord('p')]:
-                        preview=True
                 elif disp.pressed[ord('u')]:
                         safety=False
-                elif disp.pressed[ord('f')]:
+                elif disp.pressed[ord('y')]:
                         safety=True
+                elif disp.pressed[ord('v')]:
+                        preview=True
                 elif disp.pressed[ord('o')]:
                         if track: # if track is off, preview forced on
                                 preview=False
                 elif disp.pressed[ord('t')]:
                         track=True
                         laser(False)
-                elif disp.pressed[ord('f')]:
+                elif disp.pressed[ord('k')]:
                         track=False
                         preview=True
                         laser(False)

@@ -1,5 +1,5 @@
-# The Blindinator v1.0 by Ivan Cooper & Meena Shah
-# created for San Francisco Science Hack Day 2014
+// The Blindinator v1.0 by Ivan Cooper & Meena Shah
+// created for San Francisco Science Hack Day 2014
 
 #include <DigiUSB.h>
 #include <SimpleServo.h>
@@ -36,25 +36,51 @@ void loop() {
       } else if(in == '*') {
         light_status=HIGH;
         state=1;
-      } else if(in == '@') {
-        state=1;
-      }
+      } else if(in>='0' && in<=('0'+180)) {
+        // possible dropped character, treat this as X value
+        next_x = (in-'0');
+        state=2;
+      } 
+      // else invalid symbol, ignore
       break;
     case 1: // positioning x
       if(in>='0' && in<=('0'+180)) {
         next_x = (in-'0');
         state=2;
+      } else if(in == '*') {
+        // possible dropped character, try to recover
+        light_status=HIGH;
+      } else if(in == '.') {
+        // possible dropped character, try to recover
+        light_status=LOW;
       } else {
+        // invalid symbol, reset
         state=0;
       }
       break;
     case 2:
       if(in>='0' && in<=('0'+180)) {
+        // got complete position, store and reset
         x_pos = next_x;
         y_pos = (in-'0');
+        state=0;
+      } else if(in == '*') {
+        // possible dropped character, try to recover
+        light_status=HIGH;
+        state=1;
+      } else if(in == '.') {
+        // possible dropped character, try to recover
+        light_status=LOW;
+        state=1;
+      } else {
+        // invalid symbol, reset
+        state=0;
       }
-      state=0;
       break;  
+    default:
+      // invalid state means corrupt RAM, but what the heck, try to recover
+      state=0;
+      break; 
     }
   }
   digitalWrite(light_pin,light_status);

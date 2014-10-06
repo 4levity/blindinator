@@ -44,6 +44,6 @@ This is a record of what I did. As noted above you should not do this! If you do
 --    edit blindinator.py and enter correct calibration points at the top of the file
 - RUN
 --    restart blindinator.py
---    use the t key to start tracking
---    use the p,o keys to enable/disable screen preview-while-tracking (may impact performance)
+--    use the t,k key to start/stop tracking
+--    use the v,o keys to enable/disable screen preview-while-tracking (may impact performance)
 --    use the u,f keys to turn safety (autolaser disable) off/on (JUST KIDDING LEAVE THE SAFETY ON)
