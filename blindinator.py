@@ -167,7 +167,7 @@ def Look():
                         laser(True)
                 elif disp.pressed[ord('u')]:
                         safety=False
-                elif disp.pressed[ord('y')]:
+                elif disp.pressed[ord('f')]:
                         safety=True
                 elif disp.pressed[ord('v')]:
                         preview=True
